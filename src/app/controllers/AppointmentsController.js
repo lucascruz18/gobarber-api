@@ -90,6 +90,16 @@ class AppointmentsController {
         .json({ error: 'Appointment date is not available' });
     }
 
+    /*
+     * Check provider and user equality
+     */
+
+    if (provider_id == req.userId) {
+      return res
+        .status(400)
+        .json({ error: 'Unable to create schedule for this provider' });
+    }
+
     const appointment = await Appointments.create({
       user_id: req.userId,
       provider_id,
